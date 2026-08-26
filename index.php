@@ -68,7 +68,7 @@ include __DIR__ . '/inc/header.php';
 
         <div class="panel partners">
           <h2>Partnerji</h2>
-          <div class="badge-box"><b>Winamp 2.91</b><br>It really whips the lama's ass!</div>
+          <div class="badge-box"><b>Winamp 2.91</b><br>It really whips the llama's ass!</div>
           <div class="badge-box" style="background-color:#FFCC00;"><b>GET Internet Explorer 6.0</b><br>Designed for XP</div>
           <div class="badge-box" style="background-color:#00CC00; color:#FFF;"><b>Nero Burning ROM</b><br>v5.5 Ready</div>
         </div>
