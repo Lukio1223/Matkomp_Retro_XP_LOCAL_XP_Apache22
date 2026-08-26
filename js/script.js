@@ -1,4 +1,39 @@
-// Simple JS compatible with old browsers (IE6/7 friendly)
+/* TorrentZONE 2003 Classic JavaScript + Matkomp AJAX chat */
+function updateClock() {
+    var now = new Date();
+    var h = now.getHours();
+    var m = now.getMinutes();
+    var s = now.getSeconds();
+    if (h < 10) h = "0" + h;
+    if (m < 10) m = "0" + m;
+    if (s < 10) s = "0" + s;
+    var clockElem = document.getElementById('liveClock');
+    if (clockElem) {
+        clockElem.innerHTML = h + ":" + m + ":" + s;
+    }
+    setTimeout(updateClock, 1000);
+}
+
+function downloadTorrent(filename) {
+    alert("== BITTORRENT DOWNLOAD ==\n\nDatoteka: " + filename + "\nTracker: http://tracker.torrentzone.net:6969/announce\n\nZa prenos potrebujete odjemalec (BitTornado, ABC ali Azureus)!");
+}
+
+function sendChatMessage() {
+    var msgInput = document.getElementById('chatInput');
+    var chatBox = document.getElementById('chatBox');
+    if (msgInput && chatBox && trim(msgInput.value) !== '') {
+        var user = "Uporabnik_" + Math.floor(Math.random() * 899 + 100);
+        chatBox.value += "\n<" + user + "> " + msgInput.value;
+        msgInput.value = '';
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+}
+
+function trim(s) {
+    return s.replace(/^\s+|\s+$/g, '');
+}
+
+// Simple JS compatible with old browsers (IE6/7 friendly) - Matkomp initChat
 function xhrCreate() {
   try { return new XMLHttpRequest(); } catch(e) {}
   try { return new ActiveXObject('Msxml2.XMLHTTP'); } catch(e) {}
@@ -25,7 +60,7 @@ function initChat(opts) {
       var time = l.time || '';
       var author = l.author || '';
       var msg = l.message || '';
-      html += '<div><strong>['+time+'] '+author+':</strong> '+escapeHtml(msg)+'</div>';
+      html += '<div><strong>['+time+'] '+escapeHtml(author)+':</strong> '+escapeHtml(msg)+'</div>';
     }
     container.innerHTML = html;
     container.scrollTop = container.scrollHeight;
@@ -84,9 +119,6 @@ function initChat(opts) {
 
   sendBtn.onclick = send;
   setInterval(fetch, 3000);
-  setInterval(function(){
-    var now = new Date();
-    // optional: show time somewhere
-  }, 1000);
+  setInterval(function(){}, 1000);
   fetch();
 }
