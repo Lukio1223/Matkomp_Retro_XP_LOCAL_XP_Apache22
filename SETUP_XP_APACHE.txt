@@ -1,0 +1,48 @@
+SETUP_XP_APACHE - napotki za Windows XP + Apache 2.2.25 + PHP 5.x
+--------------------------------------------------------------
+
+KAM DATI PROJEKT
+- Kopirajte mapo 'matkomp' v vaš Apache htdocs folder.
+  Primerek:
+  C:\Program Files\Apache Software Foundation\Apache2.2\htdocs\matkomp\
+
+KAKO ODPRETI
+- V brskalniku odprite:
+  http://localhost/matkomp/
+
+KAKO TESTIRATI PHP
+- Odprite:
+  http://localhost/matkomp/test.php
+  Ta stran bo prikazala DA/NE za ključne funkcije.
+
+KAKO VKLJUČITI PHP V APACHE 2.2.25 (primer)
+- V httpd.conf dodajte ali uredite naslednje (prilagodite poti glede na vašo namestitev PHP):
+
+LoadModule php5_module "C:/php/php5apache2_2.dll"
+AddType application/x-httpd-php .php
+PHPIniDir "C:/php"
+
+- Opombe:
+  * Ne kopirajte teh vrstic slepo; pot do php5apache2_2.dll in PHPIniDir je lahko drugačna.
+  * Če imate Thread Safe (TS) PHP in Apache mod_php, uporabite php5apache2_2.dll.
+  * Če imate Non-TS ali uporabljate CGI, konfiguracija je drugačna.
+  * Po spremembi vedno restartajte Apache.
+
+DELOVANJE IN NAPAKE
+- Če test.php prikazuje PHP kodo kot plain text:
+  -> PHP ni pravilno povezan z Apache. Preverite httpd.conf in modul za PHP ter restartajte Apache.
+
+- Če dobite HTTP 500 ob zagonu:
+  -> Preglejte Apache error log (logs/error.log). Običajno je napaka v konfiguraciji ali napaka v modulu.
+
+- Če Apache sploh ne zažene:
+  -> Preverite httpd.conf za sintaktične napake. Poženite httpd.exe iz CMD, da vidite napake.
+
+- Če PHP deluje v CLI, ampak ne v Apache:
+  -> PHP CLI in mod_php so ločene konfiguracije. Prepričajte se, da uporabljate ustrezen php5apache2_2.dll in da je PHP build Thread Safe (če uporabite mod_php).
+
+POMEMBNO (Windows XP)
+- Uporabljajte starejše PHP gradnje, namenjene za Windows XP (PHP 5.x). Moderne PHP binarne datoteke morda ne delujejo na XP.
+- Prepričajte se, da imate ustrezne Visual C++ redistributable, če jo PHP build zahteva.
+
+Če potrebujete pomoč pri konkretni napaki, prilepite vsebino logs/error.log in izpis test.php.

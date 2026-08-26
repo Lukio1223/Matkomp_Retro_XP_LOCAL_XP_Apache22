@@ -1,0 +1,13 @@
+# Prevent execution of scripts in uploads
+Options -ExecCGI
+<IfModule mod_mime.c>
+  RemoveHandler .php .phtml .php3
+  RemoveType .php .phtml .php3
+  AddType text/plain .php .phtml .php3
+</IfModule>
+
+# Deny access to .htaccess itself
+<Files ".htaccess">
+  Order allow,deny
+  Deny from all
+</Files>
